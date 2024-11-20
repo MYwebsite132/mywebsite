@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <script>
+        async function fetchPaymentDetails() {
+            try {
+                const response = await fetch("/select_wallet");
+                const data = await response.json();
+
+                if (data.status === "success") {
+                    document.getElementById("wallet-address").innerText = data.wallet_address;
+                    document.getElementById("amount").innerText = data.amount + " BTC";
+
+                    // Generate QR code
+                    QRCode.toCanvas(
+                        document.getElementById("qrcode"),
+                        `bitcoin:${data.wallet_address}?amount=${data.amount}`,
+                        error => {
+                            if (error) console.error(error);
+                        }
+                    );
+                } else {
+                    alert("Error: " + data.message);
+                }
+            } catch (error) {
+                alert("Failed to fetch payment details.");
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", fetchPaymentDetails);
+    </script>
+</head>
+<body>
+    <h1>Make a Payment</h1>
+    <p><strong>Wallet Address:</strong> <span id="wallet-address"></span></p>
+    <p><strong>Amount:</strong> <span id="amount"></span></p>
+    <p>Scan the QR code or copy the wallet address to make a payment:</p>
+    <div id="qrcode"></div>
+</body>
+</html>

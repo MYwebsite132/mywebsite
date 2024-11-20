@@ -1,0 +1,23 @@
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+img.hover-shadow {
+    transition: 0.3s;
+}
+
+.hover-shadow:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.t {
+    color: #bc0000;
+    text-shadow: 0 0 1px #000;
+    opacity: 0.75;
+}
+
+.sold {
+    opacity: 0.5;
+    cursor: not-allowed !important;
+}

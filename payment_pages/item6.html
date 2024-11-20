@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <style>
+        /* General body and page layout */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e1f5fe;  /* Light blue background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        /* Container to center the content */
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+        }
+
+        h1 {
+            color: #0277bd;  /* Dark blue color for header */
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        /* Price and wallet information */
+        .price {
+            font-size: 18px;
+            color: #0288d1;  /* Blue color for price */
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .wallet-address {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 20px;
+            word-wrap: break-word;
+            white-space: normal;
+        }
+
+        .amount {
+            font-size: 16px;
+            color: #333;
+        }
+
+        /* Instruction text */
+        .instructions {
+            font-size: 14px;
+            color: #0277bd;  /* Dark blue color for instructions */
+            margin-top: 20px;
+        }
+
+        .instructions a {
+            color: #0288d1;
+            text-decoration: none;
+        }
+
+        /* Button style */
+        .back-button {
+            background-color: #0288d1; /* Blue button */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background-color: #0277bd;
+        }
+
+        /* QR Code style */
+        .qr-code {
+            margin-top: 20px;
+        }
+
+        /* Center the QR code */
+        .qr-code img {
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+    <script>
+        // Array of wallet addresses
+        const walletAddresses = [
+            "bc1qp04409t2p0r605usvreapx95jea2tg0eca0d8y",
+            "bc1qc5dmqgugx8a7d2njfjfk85s3nq044hhrfufu08",
+            "bc1q3672ynu8quxmjp0v98wjde3sh32apxrmagkn8s",
+            "bc1qzc2h7mpkyy7p6yhmlfpju06t2gkq2nncvtmwag",
+            "bc1qyqus8p8l5k7nrf8f5vuk7a7ft8va6677t32ylw",
+            "bc1qmp6z7e5s34r2ervmz2p29rnklzcmadue7d3dpr",
+            "bc1ql4x0fv34tlxupe0wl7rczsvsyh0n5lhs6gmty9",
+            "bc1qc2pgmkl0xh3h05x6f82x30vgn723jhm7pu8ll6",
+            "bc1qxlg6p2kevm96cg2nh0ck0l6xsjhc4tex5j0r63",
+            "bc1qtr5zgupuad6t7w7dy6vfupjh2l7q79padkgmwy"
+        ];
+
+        // Function to randomly select a wallet address
+        function selectRandomAddress() {
+            const randomIndex = Math.floor(Math.random() * walletAddresses.length);
+            return walletAddresses[randomIndex];
+        }
+
+        // Set wallet address and amount when the page loads
+        window.onload = function() {
+            const walletAddress = selectRandomAddress();
+            const amount = "0.017992411 BTC"; // Set amount for this item
+
+            // Update the page content
+            document.getElementById('walletAddress').textContent = walletAddress;
+            document.getElementById('amount').textContent = amount;
+
+            // Use an external QR code generator API (like the `goqr.me` API)
+            const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(walletAddress)}&size=200x200`;
+
+            // Set the QR code image source
+            document.getElementById("qrCodeImage").src = qrCodeUrl;
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Payment</h1>
+        
+
+        <h3>Make Payment to the Wallet Address:</h3>
+        <p class="wallet-address" id="walletAddress">Loading...</p>
+
+        <p class="amount">Amount: <span id="amount">0.14949456 BTC</span></p>
+
+        <!-- Display QR code here -->
+        <div class="qr-code">
+            <img id="qrCodeImage" alt="QR Code">
+        </div>
+
+        <p class="instructions">Please send the exact amount to the Bitcoin address above. You can copy the address or use a Bitcoin wallet to scan and send the payment.</p>
+
+        <p><a href="/" class="back-button">Back to Homepage</a></p>
+    </div>
+</body>
+</html>
